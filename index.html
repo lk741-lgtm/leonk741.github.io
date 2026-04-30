@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leon Kovalskiy | Portfolio</title>
+    <style>
+        :root {
+            --primary-color: #222;
+            --secondary-color: #555;
+            --accent-color: #0077b5; /* Professional Blue */
+            --border-color: #f0f0f0;
+            --bg-color: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+            line-height: 1.6;
+        }
+
+        header {
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            background: linear-gradient(to bottom, #fafafa, #ffffff);
+        }
+
+        .profile-pic {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 3px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            margin-top: 5px;
+        }
+
+        .social-links {
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .social-links a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+
+        section {
+            margin-bottom: 50px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .item {
+            margin-bottom: 25px;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+        }
+
+        .item-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .date {
+            color: #777;
+            font-size: 0.95rem;
+        }
+
+        .institution {
+            font-style: italic;
+            color: var(--secondary-color);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin-top: 8px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            list-style: none;
+            padding: 0;
+        }
+
+        .skills-grid li {
+            background: #f9f9f9;
+            padding: 8px 15px;
+            border-radius: 4px;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        @media (max-width: 600px) {
+            .item-header {
+                flex-direction: column;
+            }
+            .date {
+                margin-top: 2px;
+                margin-bottom: 5px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <!-- Replace 'profile.gif' with your actual image file or URL -->
+    <img src="profile.gif" alt="Leon Kovalskiy" class="profile-pic">
+    <h1>Leon Kovalskiy</h1>
+    <p class="subtitle">Accounting Student | Entrepreneur | Problem Solver</p>
+    <div class="social-links">
+        <a href="#">LinkedIn</a>
+        <a href="#">GitHub</a>
+        <a href="mailto:email@example.com">Email</a>
+    </div>
+</header>
+
+<div class="container">
+
+    <section id="about">
+        <h2>About Me</h2>
+        <p>
+            I’m an accounting student at Rutgers Business School with hands-on experience in financial analysis and real-world business operations. Beyond the classroom, I run my own e-commerce business on eBay, where I manage everything from sourcing to pricing and customer strategy.
+        </p>
+        <p>
+            I enjoy turning data into decisions and combining my accounting background with an entrepreneurial mindset to build practical, results-driven solutions.
+        </p>
+    </section>
+
+    <section id="education">
+        <h2>Education</h2>
+        
+        <div class="item">
+            <div class="item-header">
+                <span class="item-title">B.S. in Accounting</span>
+                <span class="date">2025 - Present</span>
+            </div>
+            <span class="institution">Rutgers Business School</span>
+            <p>GPA: 3.30 / 4.0</p>
+        </div>
+
+        <div class="item">
+            <div class="item-header">
+                <span class="item-title">Accounting Studies</span>
+                <span class="date">2025</span>
+            </div>
+            <span class="institution">The College of New Jersey</span>
+            <p>GPA: 3.63 / 4.0 | Dean’s List</p>
+        </div>
+
+        <div class="item">
+            <div class="item-header">
+                <span class="item-title">A.S. Business Administration</span>
+                <span class="date">Completed</span>
+            </div>
+            <span class="institution">Brookdale Community College</span>
+            <p>GPA: 3.23 / 4.0</p>
+        </div>
+    </section>
+
+    <section id="experience">
+        <h2>Experience</h2>
+
+        <div class="item">
+            <div class="item-header">
+                <span class="item-title">E-Commerce Business Owner (eBay)</span>
+                <span class="date">2022 - Present</span>
+            </div>
+            <ul>
+                <li>Managed over 2,000 product transactions</li>
+                <li>Generated $100K+ revenue with 100% positive feedback</li>
+                <li>Handled sourcing, pricing, and customer relationships</li>
+            </ul>
+        </div>
+
+        <div class="item">
+            <div class="item-header">
+                <span class="item-title">Accounting Intern</span>
+                <span class="date">2024</span>
+            </div>
+            <span class="institution">Freeze CMI</span>
+            <ul>
+                <li>Maintained financial records and posted cash receipts</li>
+                <li>Assisted with invoicing and customer account research</li>
+            </ul>
+        </div>
+
+        <div class="item">
+            <div class="item-header">
+                <span class="item-title">Dietary Aide</span>
+                <span class="date">2021 - 2023</span>
+            </div>
+            <span class="institution">Accela Rehab</span>
+            <ul>
+                <li>Assisted 50+ residents and ensured quality service</li>
+                <li>Trained and supervised new team members</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2>Skills</h2>
+        <ul class="skills-grid">
+            <li>Microsoft Excel</li>
+            <li>Financial Statement Analysis</li>
+            <li>Data Analysis</li>
+            <li>Time Management</li>
+            <li>Collaboration & Teamwork</li>
+            <li>Adaptability</li>
+        </ul>
+    </section>
+
+</div>
+
+<footer style="text-align: center; padding-bottom: 40px; color: #999; font-size: 0.8rem;">
+    &copy; 2024 Leon Kovalskiy. Built for GitHub Pages.
+</footer>
+
+</body>
+</html>
