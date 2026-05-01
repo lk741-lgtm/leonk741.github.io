@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leon Kovalskiy | Portfolio</title>
-    <!-- Canvas-confetti library -->
+    <title>Leon Kovalskiy | Portfolio & Financial App</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
             --primary-bg: #0f172a;
@@ -14,6 +14,7 @@
             --text-muted: #94a3b8;
             --accent: #38bdf8;
             --accent-glow: rgba(56, 189, 248, 0.3);
+            --success: #22c55e;
         }
 
         body {
@@ -23,10 +24,8 @@
             margin: 0;
             padding: 0;
             line-height: 1.6;
-            overflow-x: hidden;
         }
 
-        /* Fireworks Animation Layer */
         #fireworks-canvas {
             position: fixed;
             top: 0;
@@ -38,135 +37,90 @@
         }
 
         header {
-            padding: 80px 20px;
+            padding: 60px 20px;
             text-align: center;
             background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
             border-bottom: 1px solid #334155;
         }
 
         .profile-pic {
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            border: 4px solid var(--accent);
-            box-shadow: 0 0 20px var(--accent-glow);
-            margin-bottom: 20px;
-            transition: transform 0.3s ease;
+            border: 3px solid var(--accent);
+            margin-bottom: 15px;
             cursor: pointer;
         }
 
-        .profile-pic:hover {
-            transform: scale(1.1) rotate(5deg);
+        h1 { font-size: 2.5rem; margin: 0; background: linear-gradient(to right, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+
+        .app-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 30px var(--accent-glow);
+            margin-bottom: 40px;
         }
 
-        h1 {
+        .app-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 768px) { .app-grid { grid-template-columns: 1fr; } }
+
+        .input-group { margin-bottom: 20px; }
+        label { display: block; color: var(--text-muted); margin-bottom: 8px; font-size: 0.9rem; }
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: white;
+            font-size: 1.1rem;
+            box-sizing: border-box;
+        }
+
+        .result-box {
+            text-align: center;
+            padding: 20px;
+            background: #0f172a;
+            border-radius: 12px;
+            border-left: 5px solid var(--accent);
+        }
+
+        .runway-number {
             font-size: 3rem;
-            margin: 0;
-            background: linear-gradient(to right, #fff, var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .subtitle {
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 10px auto;
-        }
-
-        .cta-button {
-            margin-top: 25px;
-            padding: 12px 25px;
-            background: var(--accent);
-            color: var(--primary-bg);
-            border: none;
-            border-radius: 30px;
             font-weight: bold;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px var(--accent-glow);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px var(--accent-glow);
-            background: #fff;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 0 20px;
+            color: var(--accent);
+            display: block;
         }
 
         section {
             background: var(--card-bg);
-            padding: 30px;
+            padding: 25px;
             border-radius: 16px;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             border: 1px solid #334155;
-            transition: transform 0.3s ease;
         }
 
-        section:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-        }
+        h2 { color: var(--accent); margin-top: 0; border-bottom: 1px solid #334155; padding-bottom: 10px; margin-bottom: 20px; }
+        .skill-tag { background: #334155; padding: 5px 12px; border-radius: 15px; font-size: 0.8rem; margin: 3px; display: inline-block; color: var(--accent); }
+        
+        .exp-item { margin-bottom: 20px; }
+        .exp-header { display: flex; justify-content: space-between; font-weight: bold; }
+        .location { font-style: italic; color: var(--text-muted); display: block; font-size: 0.9rem; }
+        .date { color: var(--accent); font-size: 0.9rem; }
+        
+        ul { padding-left: 20px; color: var(--text-muted); margin-top: 10px; }
+        li { margin-bottom: 5px; }
 
-        h2 {
-            color: var(--accent);
-            margin-top: 0;
-            border-bottom: 1px solid #334155;
-            padding-bottom: 10px;
-        }
-
-        .item {
-            margin-bottom: 20px;
-        }
-
-        .item-header {
-            display: flex;
-            justify-content: space-between;
-            font-weight: bold;
-            color: #fff;
-        }
-
-        .date {
-            color: var(--accent);
-        }
-
-        ul {
-            padding-left: 20px;
-            color: var(--text-muted);
-        }
-
-        .skills-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .skill-tag {
-            background: #334155;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            border: 1px solid transparent;
-            transition: 0.3s;
-        }
-
-        .skill-tag:hover {
-            border-color: var(--accent);
-            color: #fff;
-        }
-
-        footer {
-            text-align: center;
-            padding: 40px;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
+        .edu-item { margin-bottom: 15px; }
     </style>
 </head>
 <body>
@@ -176,138 +130,212 @@
     <header>
         <img src="profile.gif" alt="Leon Kovalskiy" class="profile-pic" onclick="celebrate()">
         <h1>Leon Kovalskiy</h1>
-        <p class="subtitle">Accounting Student @ Rutgers | E-Commerce Entrepreneur</p>
-        <button class="cta-button" onclick="celebrate()">Click for Celebration! 🎉</button>
+        <p style="color: var(--text-muted)">Accounting Student @ Rutgers Business School | E-Commerce Entrepreneur</p>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Manalapan, NJ | (646) 744-8255 | leonkovalskiy@gmail.com</p>
     </header>
 
     <div class="container">
-        <section>
-            <h2>About Me</h2>
-            <p>I’m an accounting student at Rutgers Business School with hands-on experience in financial analysis and real-world business operations. I run a successful eBay business managing $100K+ in revenue.</p>
+        
+        <!-- FINANCIAL RUNWAY APP -->
+        <div class="app-card">
+            <h2 style="text-align: center; border: none;">📊 Financial Runway Predictor</h2>
+            <p style="text-align: center; color: var(--text-muted); margin-top: -15px;">Interactive Cash-Flow Tool for Personal Finance</p>
+            
+            <div class="app-grid">
+                <div class="inputs">
+                    <div class="input-group">
+                        <label>Current Savings ($)</label>
+                        <input type="number" id="savings" value="5000" oninput="calculateRunway()">
+                    </div>
+                    <div class="input-group">
+                        <label>Monthly Income ($)</label>
+                        <input type="number" id="income" value="2000" oninput="calculateRunway()">
+                    </div>
+                    <div class="input-group">
+                        <label>Monthly Expenses ($)</label>
+                        <input type="number" id="expenses" value="2500" oninput="calculateRunway()">
+                    </div>
+                </div>
+
+                <div class="display">
+                    <div class="result-box">
+                        <span style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Your Runway</span>
+                        <span id="runway-text" class="runway-number">10.0</span>
+                        <span id="unit-text">Months</span>
+                    </div>
+                    <canvas id="runwayChart" style="margin-top: 20px; max-height: 150px;"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <section id="education">
+            <h2>Education</h2>
+            <div class="edu-item">
+                <div class="exp-header">
+                    <span>Rutgers Business School</span>
+                    <span class="date">Sep 2025 - Present</span>
+                </div>
+                <span class="location">New Brunswick, New Jersey</span>
+                <p>Bachelor of Science, Accounting | GPA: 3.30/4.0</p>
+            </div>
+            <div class="edu-item">
+                <div class="exp-header">
+                    <span>The College of New Jersey</span>
+                    <span class="date">Jan 2025 - May 2025</span>
+                </div>
+                <span class="location">Ewing, New Jersey</span>
+                <p>Bachelor's in Science, Accounting | GPA: 3.63/4.0 | Dean's List Spring 2025</p>
+            </div>
+            <div class="edu-item">
+                <div class="exp-header">
+                    <span>Brookdale Community College</span>
+                    <span class="date">Sep 2022 - Dec 2022</span>
+                </div>
+                <span class="location">Lincroft, New Jersey</span>
+                <p>Associate in Science, Business Administration | GPA: 3.23/4.0</p>
+            </div>
         </section>
 
-        <section>
-            <h2>Experience</h2>
-            <div class="item">
-                <div class="item-header">
-                    <span>E-Commerce Owner (eBay)</span>
-                    <span class="date">2022 - Present</span>
+        <section id="experience">
+            <h2>Professional Experience</h2>
+            
+            <div class="exp-item">
+                <div class="exp-header">
+                    <span>eBay - E-Commerce Business Owner</span>
+                    <span class="date">Sep 2022 - Present</span>
                 </div>
+                <span class="location">Manalapan, New Jersey</span>
                 <ul>
-                    <li>Processed 2,000+ transactions</li>
-                    <li>$100K+ Revenue / 100% Positive Feedback</li>
+                    <li>Manage the buying and shipping of over 1,800 products [cite: 16]</li>
+                    <li>Generated $70k in total revenue and maintained a 100% positive feedback rating in 2024 [cite: 22]</li>
+                    <li>Communicate with hundreds of customers to ensure needs are fulfilled [cite: 17]</li>
+                    <li>Source, price, and list inventory using market research to set competitive prices [cite: 23]</li>
                 </ul>
             </div>
-            <div class="item">
-                <div class="item-header">
-                    <span>Accounting Intern — Freeze CMI</span>
-                    <span class="date">2024</span>
+
+            <div class="exp-item">
+                <div class="exp-header">
+                    <span>Freeze CMI - Accounting Intern</span>
+                    <span class="date">Sep 2024 - Dec 2024</span>
                 </div>
+                <span class="location">South Brunswick, NJ</span>
+                <ul>
+                    <li>Keep accurate records in accordance with company standards [cite: 26]</li>
+                    <li>Posted cash receipts and distributed invoices for sales review [cite: 26]</li>
+                    <li>Research short pays from customers and work on customer portals [cite: 27]</li>
+                </ul>
+            </div>
+
+            <div class="exp-item">
+                <div class="exp-header">
+                    <span>Accela Rehab and Care Center - Dietary Aide</span>
+                    <span class="date">Apr 2021 - Sep 2023</span>
+                </div>
+                <span class="location">Manalapan, New Jersey</span>
+                <ul>
+                    <li>Accommodated and guided 50+ residents with any concerns or requests [cite: 29]</li>
+                    <li>Collaborated with coworkers and contributed to overall success of team [cite: 29]</li>
+                    <li>Trained and supervised 10+ new hires on company routine and how to complete tasks [cite: 32]</li>
+                </ul>
             </div>
         </section>
 
-        <section>
-            <h2>Top Skills</h2>
-            <div class="skills-container">
-                <span class="skill-tag">Financial Analysis</span>
-                <span class="skill-tag">Microsoft Excel</span>
-                <span class="skill-tag">Inventory Sourcing</span>
-                <span class="skill-tag">Data Visualization</span>
-                <span class="skill-tag">Customer Relations</span>
+        <section id="skills">
+            <h2>Skills</h2>
+            <div class="skill-tags">
+                <span class="skill-tag">Microsoft Excel [cite: 34]</span>
+                <span class="skill-tag">Financial Statement Analysis [cite: 35]</span>
+                <span class="skill-tag">Adaptability [cite: 36]</span>
+                <span class="skill-tag">Collaboration & Teamwork [cite: 37]</span>
+                <span class="skill-tag">Time Management & Organization [cite: 38]</span>
             </div>
         </section>
     </div>
 
     <footer>
-        &copy; 2024 Leon Kovalskiy | Built with HTML, CSS, and JS
+        &copy; 2024 Leon Kovalskiy | Accounting & Entrepreneurship Portfolio
     </footer>
 
     <script>
-        // Confetti Function
+        let chart;
+
         function celebrate() {
-            confetti({
-                particleCount: 150,
-                spread: 70,
-                origin: { y: 0.6 },
-                colors: ['#38bdf8', '#ffffff', '#ffd700']
-            });
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#38bdf8', '#ffffff'] });
         }
 
-        // Automatic Fireworks Effect
-        const canvas = document.getElementById('fireworks-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
+        function calculateRunway() {
+            const savings = parseFloat(document.getElementById('savings').value) || 0;
+            const income = parseFloat(document.getElementById('income').value) || 0;
+            const expenses = parseFloat(document.getElementById('expenses').value) || 0;
 
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
+            const netBurn = expenses - income;
+            const runwayDisplay = document.getElementById('runway-text');
+            const unitText = document.getElementById('unit-text');
 
-        window.addEventListener('resize', resize);
-        resize();
-
-        class Particle {
-            constructor(x, y, color) {
-                this.x = x;
-                this.y = y;
-                this.color = color;
-                this.velocity = {
-                    x: (Math.random() - 0.5) * 8,
-                    y: (Math.random() - 0.5) * 8
-                };
-                this.alpha = 1;
-                this.friction = 0.95;
-            }
-
-            draw() {
-                ctx.globalAlpha = this.alpha;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
-                ctx.fill();
-            }
-
-            update() {
-                this.velocity.x *= this.friction;
-                this.velocity.y *= this.friction;
-                this.x += this.velocity.x;
-                this.y += this.velocity.y;
-                this.alpha -= 0.01;
+            if (netBurn <= 0) {
+                runwayDisplay.innerText = "∞";
+                runwayDisplay.style.color = "#22c55e";
+                unitText.innerText = "Infinite (Positive Cash Flow)";
+                updateChart(savings, 0);
+            } else {
+                const months = (savings / netBurn).toFixed(1);
+                runwayDisplay.innerText = months;
+                runwayDisplay.style.color = "#38bdf8";
+                unitText.innerText = "Months until depletion";
+                updateChart(savings, netBurn);
             }
         }
 
-        function createFirework() {
-            const x = Math.random() * canvas.width;
-            const y = Math.random() * canvas.height * 0.5;
-            const color = `hsl(${Math.random() * 360}, 50%, 50%)`;
+        function updateChart(savings, burn) {
+            const ctx = document.getElementById('runwayChart').getContext('2d');
+            const labels = ['Month 0', 'Month 1', 'Month 2', 'Month 3', 'Month 4', 'Month 5'];
+            const data = labels.map((_, i) => Math.max(0, savings - (burn * i)));
+
+            if (chart) chart.destroy();
             
-            for (let i = 0; i < 30; i++) {
-                particles.push(new Particle(x, y, color));
-            }
-        }
-
-        function animate() {
-            requestAnimationFrame(animate);
-            ctx.fillStyle = 'rgba(15, 23, 42, 0.1)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            particles.forEach((p, i) => {
-                if (p.alpha > 0) {
-                    p.update();
-                    p.draw();
-                } else {
-                    particles.splice(i, 1);
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Projected Cash',
+                        data: data,
+                        borderColor: '#38bdf8',
+                        backgroundColor: 'rgba(56, 189, 248, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    plugins: { legend: { display: false } },
+                    scales: { 
+                        y: { display: false },
+                        x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+                    }
                 }
             });
-
-            if (Math.random() < 0.02) createFirework();
         }
 
-        animate();
+        const canvas = document.getElementById('fireworks-canvas');
+        const ctx = canvas.getContext('2d');
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.onresize = resize; resize();
+
+        function animate() {
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            if (Math.random() < 0.015) {
+                ctx.beginPath();
+                ctx.arc(Math.random()*canvas.width, Math.random()*canvas.height, 2, 0, Math.PI*2);
+                ctx.fillStyle = '#38bdf8';
+                ctx.fill();
+            }
+            requestAnimationFrame(animate);
+        }
         
-        // Initial celebration on load
         window.onload = () => {
-            setTimeout(celebrate, 500);
+            calculateRunway();
+            animate();
         };
     </script>
 </body>
