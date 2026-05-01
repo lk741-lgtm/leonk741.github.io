@@ -4,268 +4,311 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leon Kovalskiy | Portfolio</title>
+    <!-- Canvas-confetti library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
-            --primary-color: #222;
-            --secondary-color: #555;
-            --accent-color: #0077b5; /* Professional Blue */
-            --border-color: #f0f0f0;
-            --bg-color: #ffffff;
+            --primary-bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.3);
         }
 
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-main);
             margin: 0;
             padding: 0;
-            background-color: var(--bg-color);
-            color: var(--primary-color);
             line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Fireworks Animation Layer */
+        #fireworks-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
         }
 
         header {
-            padding: 60px 20px;
+            padding: 80px 20px;
             text-align: center;
-            border-bottom: 1px solid #eee;
-            background: linear-gradient(to bottom, #fafafa, #ffffff);
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+            border-bottom: 1px solid #334155;
         }
 
         .profile-pic {
-            width: 140px;
-            height: 140px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
-            object-fit: cover;
+            border: 4px solid var(--accent);
+            box-shadow: 0 0 20px var(--accent-glow);
             margin-bottom: 20px;
-            border: 3px solid white;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.1) rotate(5deg);
         }
 
         h1 {
+            font-size: 3rem;
             margin: 0;
-            font-size: 2.5rem;
-            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .subtitle {
-            color: var(--secondary-color);
-            font-size: 1.1rem;
-            margin-top: 5px;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 10px auto;
         }
 
-        .social-links {
-            margin-top: 15px;
-        }
-
-        .social-links a {
-            margin: 0 10px;
-            text-decoration: none;
-            color: var(--accent-color);
+        .cta-button {
+            margin-top: 25px;
+            padding: 12px 25px;
+            background: var(--accent);
+            color: var(--primary-bg);
+            border: none;
+            border-radius: 30px;
             font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--accent-glow);
         }
 
-        .social-links a:hover {
-            text-decoration: underline;
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px var(--accent-glow);
+            background: #fff;
         }
 
         .container {
-            max-width: 850px;
-            margin: auto;
-            padding: 40px 20px;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
         }
 
         section {
-            margin-bottom: 50px;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            border: 1px solid #334155;
+            transition: transform 0.3s ease;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
         }
 
         h2 {
-            font-size: 1.5rem;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 8px;
-            margin-bottom: 20px;
-            color: var(--primary-color);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            color: var(--accent);
+            margin-top: 0;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 10px;
         }
 
         .item {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .item-header {
             display: flex;
             justify-content: space-between;
-            align-items: baseline;
-            flex-wrap: wrap;
-        }
-
-        .item-title {
             font-weight: bold;
-            font-size: 1.1rem;
+            color: #fff;
         }
 
         .date {
-            color: #777;
-            font-size: 0.95rem;
-        }
-
-        .institution {
-            font-style: italic;
-            color: var(--secondary-color);
-            display: block;
-            margin-bottom: 5px;
+            color: var(--accent);
         }
 
         ul {
             padding-left: 20px;
-            margin-top: 8px;
+            color: var(--text-muted);
         }
 
-        li {
-            margin-bottom: 5px;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
             gap: 10px;
-            list-style: none;
-            padding: 0;
         }
 
-        .skills-grid li {
-            background: #f9f9f9;
-            padding: 8px 15px;
-            border-radius: 4px;
-            border-left: 3px solid var(--accent-color);
+        .skill-tag {
+            background: #334155;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid transparent;
+            transition: 0.3s;
         }
 
-        @media (max-width: 600px) {
-            .item-header {
-                flex-direction: column;
-            }
-            .date {
-                margin-top: 2px;
-                margin-bottom: 5px;
-            }
-            h1 {
-                font-size: 2rem;
-            }
+        .skill-tag:hover {
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
 
-<header>
-    <!-- Replace 'profile.gif' with your actual image file or URL -->
-    <img src="profile.gif" alt="Leon Kovalskiy" class="profile-pic">
-    <h1>Leon Kovalskiy</h1>
-    <p class="subtitle">Accounting Student | Entrepreneur | Problem Solver</p>
-    <div class="social-links">
-        <a href="#">LinkedIn</a>
-        <a href="#">GitHub</a>
-        <a href="mailto:email@example.com">Email</a>
+    <canvas id="fireworks-canvas"></canvas>
+
+    <header>
+        <img src="profile.gif" alt="Leon Kovalskiy" class="profile-pic" onclick="celebrate()">
+        <h1>Leon Kovalskiy</h1>
+        <p class="subtitle">Accounting Student @ Rutgers | E-Commerce Entrepreneur</p>
+        <button class="cta-button" onclick="celebrate()">Click for Celebration! 🎉</button>
+    </header>
+
+    <div class="container">
+        <section>
+            <h2>About Me</h2>
+            <p>I’m an accounting student at Rutgers Business School with hands-on experience in financial analysis and real-world business operations. I run a successful eBay business managing $100K+ in revenue.</p>
+        </section>
+
+        <section>
+            <h2>Experience</h2>
+            <div class="item">
+                <div class="item-header">
+                    <span>E-Commerce Owner (eBay)</span>
+                    <span class="date">2022 - Present</span>
+                </div>
+                <ul>
+                    <li>Processed 2,000+ transactions</li>
+                    <li>$100K+ Revenue / 100% Positive Feedback</li>
+                </ul>
+            </div>
+            <div class="item">
+                <div class="item-header">
+                    <span>Accounting Intern — Freeze CMI</span>
+                    <span class="date">2024</span>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Top Skills</h2>
+            <div class="skills-container">
+                <span class="skill-tag">Financial Analysis</span>
+                <span class="skill-tag">Microsoft Excel</span>
+                <span class="skill-tag">Inventory Sourcing</span>
+                <span class="skill-tag">Data Visualization</span>
+                <span class="skill-tag">Customer Relations</span>
+            </div>
+        </section>
     </div>
-</header>
 
-<div class="container">
+    <footer>
+        &copy; 2024 Leon Kovalskiy | Built with HTML, CSS, and JS
+    </footer>
 
-    <section id="about">
-        <h2>About Me</h2>
-        <p>
-            I’m an accounting student at Rutgers Business School with hands-on experience in financial analysis and real-world business operations. Beyond the classroom, I run my own e-commerce business on eBay, where I manage everything from sourcing to pricing and customer strategy.
-        </p>
-        <p>
-            I enjoy turning data into decisions and combining my accounting background with an entrepreneurial mindset to build practical, results-driven solutions.
-        </p>
-    </section>
+    <script>
+        // Confetti Function
+        function celebrate() {
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#38bdf8', '#ffffff', '#ffd700']
+            });
+        }
 
-    <section id="education">
-        <h2>Education</h2>
+        // Automatic Fireworks Effect
+        const canvas = document.getElementById('fireworks-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.velocity = {
+                    x: (Math.random() - 0.5) * 8,
+                    y: (Math.random() - 0.5) * 8
+                };
+                this.alpha = 1;
+                this.friction = 0.95;
+            }
+
+            draw() {
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+
+            update() {
+                this.velocity.x *= this.friction;
+                this.velocity.y *= this.friction;
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+                this.alpha -= 0.01;
+            }
+        }
+
+        function createFirework() {
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height * 0.5;
+            const color = `hsl(${Math.random() * 360}, 50%, 50%)`;
+            
+            for (let i = 0; i < 30; i++) {
+                particles.push(new Particle(x, y, color));
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach((p, i) => {
+                if (p.alpha > 0) {
+                    p.update();
+                    p.draw();
+                } else {
+                    particles.splice(i, 1);
+                }
+            });
+
+            if (Math.random() < 0.02) createFirework();
+        }
+
+        animate();
         
-        <div class="item">
-            <div class="item-header">
-                <span class="item-title">B.S. in Accounting</span>
-                <span class="date">2025 - Present</span>
-            </div>
-            <span class="institution">Rutgers Business School</span>
-            <p>GPA: 3.30 / 4.0</p>
-        </div>
-
-        <div class="item">
-            <div class="item-header">
-                <span class="item-title">Accounting Studies</span>
-                <span class="date">2025</span>
-            </div>
-            <span class="institution">The College of New Jersey</span>
-            <p>GPA: 3.63 / 4.0 | Dean’s List</p>
-        </div>
-
-        <div class="item">
-            <div class="item-header">
-                <span class="item-title">A.S. Business Administration</span>
-                <span class="date">Completed</span>
-            </div>
-            <span class="institution">Brookdale Community College</span>
-            <p>GPA: 3.23 / 4.0</p>
-        </div>
-    </section>
-
-    <section id="experience">
-        <h2>Experience</h2>
-
-        <div class="item">
-            <div class="item-header">
-                <span class="item-title">E-Commerce Business Owner (eBay)</span>
-                <span class="date">2022 - Present</span>
-            </div>
-            <ul>
-                <li>Managed over 2,000 product transactions</li>
-                <li>Generated $100K+ revenue with 100% positive feedback</li>
-                <li>Handled sourcing, pricing, and customer relationships</li>
-            </ul>
-        </div>
-
-        <div class="item">
-            <div class="item-header">
-                <span class="item-title">Accounting Intern</span>
-                <span class="date">2024</span>
-            </div>
-            <span class="institution">Freeze CMI</span>
-            <ul>
-                <li>Maintained financial records and posted cash receipts</li>
-                <li>Assisted with invoicing and customer account research</li>
-            </ul>
-        </div>
-
-        <div class="item">
-            <div class="item-header">
-                <span class="item-title">Dietary Aide</span>
-                <span class="date">2021 - 2023</span>
-            </div>
-            <span class="institution">Accela Rehab</span>
-            <ul>
-                <li>Assisted 50+ residents and ensured quality service</li>
-                <li>Trained and supervised new team members</li>
-            </ul>
-        </div>
-    </section>
-
-    <section id="skills">
-        <h2>Skills</h2>
-        <ul class="skills-grid">
-            <li>Microsoft Excel</li>
-            <li>Financial Statement Analysis</li>
-            <li>Data Analysis</li>
-            <li>Time Management</li>
-            <li>Collaboration & Teamwork</li>
-            <li>Adaptability</li>
-        </ul>
-    </section>
-
-</div>
-
-<footer style="text-align: center; padding-bottom: 40px; color: #999; font-size: 0.8rem;">
-    &copy; 2024 Leon Kovalskiy. Built for GitHub Pages.
-</footer>
-
+        // Initial celebration on load
+        window.onload = () => {
+            setTimeout(celebrate, 500);
+        };
+    </script>
 </body>
 </html>
