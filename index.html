@@ -3,198 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leon Kovalskiy | Portfolio & Financial App</title>
+    <title>Leon Kovalskiy | Portfolio</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            --primary-bg: #0f172a;
-            --card-bg: #1e293b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent: #38bdf8;
-            --accent-glow: rgba(56, 189, 248, 0.3);
-            --success: #22c55e;
+            --primary-bg: #ffffff;
+            --secondary-bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --accent: #0284c7;
+            --accent-light: #e0f2fe;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
         }
+
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Inter', -apple-system, sans-serif;
-            background-color: var(--primary-bg);
+            background-color: var(--secondary-bg);
             color: var(--text-main);
             margin: 0;
             padding: 0;
             line-height: 1.6;
         }
 
-        #fireworks-canvas {
-            position: fixed;
+        /* Navigation Bar */
+        nav {
+            position: sticky;
             top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
+            background: white;
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+            z-index: 1000;
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
         }
 
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        nav a:hover { color: var(--accent); }
+
         header {
-            padding: 60px 20px;
+            padding: 80px 20px;
             text-align: center;
-            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
-            border-bottom: 1px solid #334155;
+            background: white;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .profile-pic {
-            width: 120px;
-            height: 120px;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
-            border: 3px solid var(--accent);
-            margin-bottom: 15px;
+            border: 4px solid white;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
             cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
-        h1 { font-size: 2.5rem; margin: 0; background: linear-gradient(to right, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .profile-pic:hover { transform: scale(1.05); }
 
-        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+        h1 { font-size: 2.8rem; margin: 0; color: #0f172a; letter-spacing: -0.025em; }
 
-        .app-card {
+        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; padding-bottom: 100px; }
+
+        section {
             background: var(--card-bg);
-            padding: 30px;
-            border-radius: 20px;
-            border: 2px solid var(--accent);
-            box-shadow: 0 0 30px var(--accent-glow);
+            padding: 40px;
+            border-radius: 12px;
             margin-bottom: 40px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
         }
 
-        .app-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
+        h2 { 
+            color: #0f172a; 
+            margin-top: 0; 
+            font-size: 1.75rem;
+            border-bottom: 2px solid var(--accent-light);
+            padding-bottom: 10px;
+            margin-bottom: 30px; 
         }
 
+        /* App Styles at Bottom */
+        .app-card {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            border: 2px solid var(--accent-light);
+            margin-top: 60px;
+        }
+
+        .app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
         @media (max-width: 768px) { .app-grid { grid-template-columns: 1fr; } }
 
         .input-group { margin-bottom: 20px; }
-        label { display: block; color: var(--text-muted); margin-bottom: 8px; font-size: 0.9rem; }
+        label { display: block; color: var(--text-muted); margin-bottom: 8px; font-size: 0.85rem; font-weight: 600; }
         input {
             width: 100%;
             padding: 12px;
             border-radius: 8px;
-            border: 1px solid #334155;
-            background: #0f172a;
-            color: white;
-            font-size: 1.1rem;
+            border: 1px solid var(--border-color);
+            background: var(--secondary-bg);
+            color: var(--text-main);
+            font-size: 1rem;
             box-sizing: border-box;
         }
 
         .result-box {
             text-align: center;
-            padding: 20px;
-            background: #0f172a;
+            padding: 30px;
+            background: var(--accent-light);
             border-radius: 12px;
-            border-left: 5px solid var(--accent);
-        }
-
-        .runway-number {
-            font-size: 3rem;
-            font-weight: bold;
             color: var(--accent);
-            display: block;
         }
 
-        section {
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 16px;
-            margin-bottom: 25px;
-            border: 1px solid #334155;
+        .runway-number { font-size: 3.5rem; font-weight: 800; display: block; line-height: 1; }
+
+        .exp-item { margin-bottom: 30px; }
+        .exp-header { display: flex; justify-content: space-between; font-weight: 700; font-size: 1.1rem; }
+        .location { font-style: italic; color: var(--text-muted); display: block; font-size: 0.9rem; margin-top: 2px; }
+        .date { color: var(--accent); font-size: 0.9rem; font-weight: 600; }
+        
+        ul { padding-left: 20px; color: #334155; margin-top: 12px; }
+        li { margin-bottom: 8px; }
+
+        .skill-tag { 
+            background: var(--accent-light); 
+            padding: 8px 16px; 
+            border-radius: 9999px; 
+            font-size: 0.85rem; 
+            margin: 4px; 
+            display: inline-block; 
+            color: var(--accent);
+            font-weight: 600;
         }
-
-        h2 { color: var(--accent); margin-top: 0; border-bottom: 1px solid #334155; padding-bottom: 10px; margin-bottom: 20px; }
-        .skill-tag { background: #334155; padding: 5px 12px; border-radius: 15px; font-size: 0.8rem; margin: 3px; display: inline-block; color: var(--accent); }
         
-        .exp-item { margin-bottom: 20px; }
-        .exp-header { display: flex; justify-content: space-between; font-weight: bold; }
-        .location { font-style: italic; color: var(--text-muted); display: block; font-size: 0.9rem; }
-        .date { color: var(--accent); font-size: 0.9rem; }
-        
-        ul { padding-left: 20px; color: var(--text-muted); margin-top: 10px; }
-        li { margin-bottom: 5px; }
-
-        .edu-item { margin-bottom: 15px; }
+        footer { text-align: center; padding: 60px; color: var(--text-muted); border-top: 1px solid var(--border-color); background: white; }
     </style>
 </head>
 <body>
 
-    <canvas id="fireworks-canvas"></canvas>
+    <nav>
+        <div class="nav-container">
+            <a href="#experience">Experience</a>
+            <a href="#education">Education</a>
+            <a href="#skills">Skills</a>
+            <a href="#app">Runway App</a>
+        </div>
+    </nav>
 
     <header>
         <img src="profile.gif" alt="Leon Kovalskiy" class="profile-pic" onclick="celebrate()">
         <h1>Leon Kovalskiy</h1>
-        <p style="color: var(--text-muted)">Accounting Student @ Rutgers Business School | E-Commerce Entrepreneur</p>
+        <p style="color: var(--text-muted); font-size: 1.1rem; margin-top: 10px;">Accounting Student @ Rutgers Business School | E-Commerce Entrepreneur</p>
         <p style="color: var(--text-muted); font-size: 0.9rem;">Manalapan, NJ | (646) 744-8255 | leonkovalskiy@gmail.com</p>
     </header>
 
     <div class="container">
         
-        <div class="app-card">
-            <h2 style="text-align: center; border: none;">📊 Financial Runway Predictor</h2>
-            <p style="text-align: center; color: var(--text-muted); margin-top: -15px;">Interactive Cash-Flow Tool for Personal Finance</p>
-            
-            <div class="app-grid">
-                <div class="inputs">
-                    <div class="input-group">
-                        <label>Current Savings ($)</label>
-                        <input type="number" id="savings" value="5000" oninput="calculateRunway()">
-                    </div>
-                    <div class="input-group">
-                        <label>Monthly Income ($)</label>
-                        <input type="number" id="income" value="2000" oninput="calculateRunway()">
-                    </div>
-                    <div class="input-group">
-                        <label>Monthly Expenses ($)</label>
-                        <input type="number" id="expenses" value="2500" oninput="calculateRunway()">
-                    </div>
-                </div>
-
-                <div class="display">
-                    <div class="result-box">
-                        <span style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Your Runway</span>
-                        <span id="runway-text" class="runway-number">10.0</span>
-                        <span id="unit-text">Months</span>
-                    </div>
-                    <canvas id="runwayChart" style="margin-top: 20px; max-height: 150px;"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <section id="education">
-            <h2>Education</h2>
-            <div class="edu-item">
-                <div class="exp-header">
-                    <span>Rutgers Business School</span>
-                    <span class="date">Sep 2025 - Present</span>
-                </div>
-                <span class="location">New Brunswick, New Jersey</span>
-                <p>Bachelor of Science, Accounting | GPA: 3.30/4.0</p>
-            </div>
-            <div class="edu-item">
-                <div class="exp-header">
-                    <span>The College of New Jersey</span>
-                    <span class="date">Jan 2025 - May 2025</span>
-                </div>
-                <span class="location">Ewing, New Jersey</span>
-                <p>Bachelor's in Science, Accounting | GPA: 3.63/4.0 | Dean's List Spring 2025</p>
-            </div>
-            <div class="edu-item">
-                <div class="exp-header">
-                    <span>Brookdale Community College</span>
-                    <span class="date">Sep 2022 - Dec 2022</span>
-                </div>
-                <span class="location">Lincroft, New Jersey</span>
-                <p>Associate in Science, Business Administration | GPA: 3.23/4.0</p>
-            </div>
-        </section>
-
         <section id="experience">
             <h2>Professional Experience</h2>
             
@@ -239,6 +222,34 @@
             </div>
         </section>
 
+        <section id="education">
+            <h2>Education</h2>
+            <div class="exp-item">
+                <div class="exp-header">
+                    <span>Rutgers Business School</span>
+                    <span class="date">Sep 2025 - Present</span>
+                </div>
+                <span class="location">New Brunswick, New Jersey [cite: 18]</span>
+                <p>Bachelor of Science, Accounting | Cumulative GPA: 3.30/4.0 [cite: 6]</p>
+            </div>
+            <div class="exp-item">
+                <div class="exp-header">
+                    <span>The College of New Jersey</span>
+                    <span class="date">Jan 2025 - May 2025</span>
+                </div>
+                <span class="location">Ewing, New Jersey [cite: 19]</span>
+                <p>Bachelor's in Science, Accounting | Cumulative GPA: 3.63/4.0 | Dean's List Spring 2025 [cite: 8, 9]</p>
+            </div>
+            <div class="exp-item">
+                <div class="exp-header">
+                    <span>Brookdale Community College</span>
+                    <span class="date">Sep 2022 - Dec 2022</span>
+                </div>
+                <span class="location">Lincroft, New Jersey [cite: 20]</span>
+                <p>Associate in Science, Business Administration | Cumulative GPA: 3.23/4.0 [cite: 12]</p>
+            </div>
+        </section>
+
         <section id="skills">
             <h2>Skills</h2>
             <div class="skill-tags">
@@ -249,17 +260,49 @@
                 <span class="skill-tag">Time Management & Organization [cite: 38]</span>
             </div>
         </section>
+
+        <!-- APP MOVED TO BOTTOM -->
+        <div id="app" class="app-card">
+            <h2 style="text-align: center; border: none;">📊 Financial Runway Predictor</h2>
+            <p style="text-align: center; color: var(--text-muted); margin-top: -15px; margin-bottom: 30px;">Professional Interactive Cash-Flow Tool</p>
+            
+            <div class="app-grid">
+                <div class="inputs">
+                    <div class="input-group">
+                        <label>Current Savings ($)</label>
+                        <input type="number" id="savings" value="5000" oninput="calculateRunway()">
+                    </div>
+                    <div class="input-group">
+                        <label>Monthly Income ($)</label>
+                        <input type="number" id="income" value="2000" oninput="calculateRunway()">
+                    </div>
+                    <div class="input-group">
+                        <label>Monthly Expenses ($)</label>
+                        <input type="number" id="expenses" value="2500" oninput="calculateRunway()">
+                    </div>
+                </div>
+
+                <div class="display">
+                    <div class="result-box">
+                        <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700;">Projected Runway</span>
+                        <span id="runway-text" class="runway-number">10.0</span>
+                        <span id="unit-text" style="font-weight: 600;">Months</span>
+                    </div>
+                    <canvas id="runwayChart" style="margin-top: 25px; max-height: 150px;"></canvas>
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer>
-        &copy; 2024 Leon Kovalskiy | Accounting & Entrepreneurship Portfolio
+        &copy; 2026 Leon Kovalskiy | Accounting Portfolio [cite: 1]
     </footer>
 
     <script>
         let chart;
 
         function celebrate() {
-            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#38bdf8', '#ffffff'] });
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#0284c7', '#7dd3fc'] });
         }
 
         function calculateRunway() {
@@ -273,13 +316,13 @@
 
             if (netBurn <= 0) {
                 runwayDisplay.innerText = "∞";
-                runwayDisplay.style.color = "#22c55e";
-                unitText.innerText = "Infinite (Positive Cash Flow)";
+                runwayDisplay.style.color = "#16a34a";
+                unitText.innerText = "Infinite Cash Flow";
                 updateChart(savings, 0);
             } else {
                 const months = (savings / netBurn).toFixed(1);
                 runwayDisplay.innerText = months;
-                runwayDisplay.style.color = "#38bdf8";
+                runwayDisplay.style.color = "#0284c7";
                 unitText.innerText = "Months until depletion";
                 updateChart(savings, netBurn);
             }
@@ -297,44 +340,28 @@
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: 'Projected Cash',
+                        label: 'Cash Flow',
                         data: data,
-                        borderColor: '#38bdf8',
-                        backgroundColor: 'rgba(56, 189, 248, 0.1)',
+                        borderColor: '#0284c7',
+                        backgroundColor: 'rgba(2, 132, 199, 0.1)',
                         fill: true,
-                        tension: 0.4
+                        tension: 0.4,
+                        pointRadius: 0
                     }]
                 },
                 options: {
                     plugins: { legend: { display: false } },
                     scales: { 
                         y: { display: false },
-                        x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+                        x: { grid: { display: false }, ticks: { color: '#64748b', font: { size: 10 } } }
                     }
                 }
             });
         }
 
-        const canvas = document.getElementById('fireworks-canvas');
-        const ctx = canvas.getContext('2d');
-        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        window.onresize = resize; resize();
-
-        function animate() {
-            ctx.fillStyle = 'rgba(15, 23, 42, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            if (Math.random() < 0.015) {
-                ctx.beginPath();
-                ctx.arc(Math.random()*canvas.width, Math.random()*canvas.height, 2, 0, Math.PI*2);
-                ctx.fillStyle = '#38bdf8';
-                ctx.fill();
-            }
-            requestAnimationFrame(animate);
-        }
-        
         window.onload = () => {
             calculateRunway();
-            animate();
+            // Silent load for light mode (no heavy fireworks background)
         };
     </script>
 </body>
