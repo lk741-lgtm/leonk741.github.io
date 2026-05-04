@@ -110,9 +110,8 @@
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             z-index: 1;
-            /* object-fit cover ensures the flat vector image fits the circle frame */
             object-fit: cover; 
-            background: white; /* Adds a clean background behind the vector */
+            background: white;
         }
 
         .profile-pic:hover { transform: scale(1.1) rotate(3deg); border-color: white; }
@@ -187,7 +186,8 @@
         .exp-item:hover { background: #f8fafc; }
 
         .exp-header { display: flex; justify-content: space-between; font-weight: 700; color: #0f172a; }
-        .date { color: var(--accent); font-weight: 600; background: var(--accent-light); padding: 2px 10px; border-radius: 20px; font-size: 0.85rem; }
+        .location { font-style: italic; color: var(--text-muted); display: block; font-size: 0.9rem; margin-top: 2px; }
+        .date { color: var(--accent); font-weight: 600; background: #e0f2fe; padding: 2px 10px; border-radius: 20px; font-size: 0.85rem; }
 
         .skill-tag {
             background: white;
@@ -243,11 +243,10 @@
     </nav>
 
     <header>
-        <!-- Updated Profile Picture to vector avatar -->
-        <img src="vector_businessman_avatar.jpg" alt="Leon Kovalskiy" class="profile-pic" onclick="celebrate()">
+        <img src="simple-flat-illustration-of-faceless-business-person-with-suit-and-tie-vector.jpg" alt="Leon Kovalskiy" class="profile-pic" onclick="celebrate()">
         <h1>Leon Kovalskiy</h1>
-        <p style="font-size: 1.2rem;">Accounting Student @ Rutgers | $150k Revenue E-Commerce Founder</p>
-        <p style="font-size: 0.9rem; opacity: 0.8;">leonkovalskiy@gmail.com • Manalapan, NJ</p>
+        <p style="font-size: 1.2rem;">Accounting Student @ Rutgers | E-Commerce Founder</p>
+        <p style="font-size: 0.9rem; opacity: 0.8;">leonkovalskiy@gmail.com • (646) 744-8255 • Manalapan, NJ</p>
         <a href="Leon_Kovalskiy_Resume.pdf" download class="download-btn">Download Resume PDF</a>
     </header>
 
@@ -255,25 +254,44 @@
 
         <section id="experience">
             <h2>Professional Experience</h2>
+            
             <div class="exp-item">
                 <div class="exp-header">
                     <span>eBay - E-Commerce Business Owner</span>
-                    <span class="date">2022 - Present</span>
+                    <span class="date">Sep 2022 - Present</span>
                 </div>
+                <span class="location">Manalapan, New Jersey</span>
                 <ul>
-                    <li>Optimized inventory turnover for 1,800+ products</li>
-                    <li>Scaled revenue to **$150k** with a 100% feedback score</li>
-                    <li>Expertise in sourcing, market research, and customer CRM</li>
+                    <li>Manage the buying and shipping of over 1,800 products [cite: 1]</li>
+                    <li>Generated $70k in total revenue and maintained a 100% positive feedback rating in 2024 [cite: 1]</li>
+                    <li>Communicate with hundreds of customers to ensure needs are fulfilled [cite: 1]</li>
+                    <li>Source, price, and list inventory, using market research to set competitive prices [cite: 1]</li>
                 </ul>
             </div>
+
             <div class="exp-item">
                 <div class="exp-header">
                     <span>Freeze CMI - Accounting Intern</span>
-                    <span class="date">2024</span>
+                    <span class="date">Sep 2024 - Dec 2024</span>
                 </div>
+                <span class="location">South Brunswick, NJ</span>
                 <ul>
-                    <li>Managed cash receipts and invoice distribution</li>
-                    <li>Analyzed customer portals for payment discrepancies</li>
+                    <li>Keep accurate records in accordance with company standards [cite: 1]</li>
+                    <li>Posted cash receipts and distributed invoices for sales review [cite: 1]</li>
+                    <li>Research short pays from customers and work on customer portals [cite: 1]</li>
+                </ul>
+            </div>
+
+            <div class="exp-item">
+                <div class="exp-header">
+                    <span>Accela Rehab and Care Center at Manalapan - Dietary Aide</span>
+                    <span class="date">Apr 2021 - Sep 2023</span>
+                </div>
+                <span class="location">Manalapan, New Jersey</span>
+                <ul>
+                    <li>Accommodated and guided 50+ residents with any concerns or requests [cite: 1]</li>
+                    <li>Collaborated with coworkers and contributed to overall success of team [cite: 1]</li>
+                    <li>Trained and supervised 10+ new hires on company routine and how to complete tasks [cite: 1]</li>
                 </ul>
             </div>
         </section>
@@ -281,23 +299,30 @@
         <section id="education">
             <h2>Education</h2>
             <div class="exp-item">
-                <div class="exp-header"><span>Rutgers Business School</span><span class="date">GPA: 3.30</span></div>
-                <p>B.S. in Accounting (Expected 2025+)</p>
+                <div class="exp-header"><span>Rutgers Business School</span><span class="date">Sep 2025 - Present</span></div>
+                <span class="location">New Brunswick, New Jersey</span>
+                <p>Bachelor of Science, Accounting | Cumulative GPA: 3.30/4.0 [cite: 1]</p>
             </div>
             <div class="exp-item">
-                <div class="exp-header"><span>The College of New Jersey</span><span class="date">GPA: 3.63</span></div>
-                <p>Accounting • Dean's List Spring 2025</p>
+                <div class="exp-header"><span>The College of New Jersey</span><span class="date">Jan 2025 - May 2025</span></div>
+                <span class="location">Ewing, New Jersey</span>
+                <p>Bachelor's in Science, Accounting | Cumulative GPA: 3.63/4.0; Dean's List Spring 2025 [cite: 1]</p>
+            </div>
+            <div class="exp-item">
+                <div class="exp-header"><span>Brookdale Community College</span><span class="date">Sep 2022 - Dec 2022</span></div>
+                <span class="location">Lincroft, New Jersey</span>
+                <p>Associate in Science, Business Administration | Cumulative GPA: 3.23/4.0 [cite: 1]</p>
             </div>
         </section>
 
         <section id="skills">
             <h2>Technical Skills</h2>
             <div class="skill-tags">
-                <span class="skill-tag">Microsoft Excel</span>
-                <span class="skill-tag">Financial Analysis</span>
-                <span class="skill-tag">Inventory Logistics</span>
-                <span class="skill-tag">Data Visualization</span>
-                <span class="skill-tag">QuickBooks Knowledge</span>
+                <span class="skill-tag">Microsoft Excel [cite: 1]</span>
+                <span class="skill-tag">Financial Statement Analysis [cite: 1]</span>
+                <span class="skill-tag">Adaptability [cite: 1]</span>
+                <span class="skill-tag">Collaboration & Teamwork [cite: 1]</span>
+                <span class="skill-tag">Time management & Organization [cite: 1]</span>
             </div>
         </section>
 
