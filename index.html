@@ -6,17 +6,16 @@
     <title>Leon Kovalskiy | Portfolio</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Adding Scroll Reveal Library for smooth transitions -->
     <script src="https://unpkg.com/scrollreveal"></script>
     <style>
         :root {
-            --primary-bg: #f0f4f8; /* Soft blue-grey background */
+            --primary-bg: #f0f4f8;
             --nav-bg: #ffffff;
             --card-bg: #ffffff;
             --text-main: #1e293b;
             --text-muted: #64748b;
-            --accent: #0284c7; /* Main Professional Blue */
-            --accent-secondary: #0ea5e9; /* Lighter Blue */
+            --accent: #0284c7;
+            --accent-secondary: #0ea5e9;
             --accent-gradient: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%);
             --border-color: #e2e8f0;
             --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
@@ -33,7 +32,6 @@
             line-height: 1.6;
         }
 
-        /* Navigation Bar with subtle glass effect */
         nav {
             position: sticky;
             top: 0;
@@ -81,6 +79,25 @@
             color: white;
             clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
             margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Moving background elements for visual effect */
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 80%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .profile-pic {
@@ -92,12 +109,35 @@
             margin-bottom: 20px;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            z-index: 1;
         }
 
         .profile-pic:hover { transform: scale(1.1) rotate(3deg); border-color: white; }
 
-        header h1 { font-size: 3.2rem; margin: 0; letter-spacing: -0.05em; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        header p { opacity: 0.9; font-weight: 400; }
+        header h1 { font-size: 3.2rem; margin: 0; letter-spacing: -0.05em; text-shadow: 0 2px 4px rgba(0,0,0,0.1); position: relative; z-index: 1; }
+        header p { opacity: 0.9; font-weight: 400; position: relative; z-index: 1; }
+
+        .download-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background-color: white;
+            color: var(--accent);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            background-color: #f8fafc;
+        }
 
         .container { max-width: 900px; margin: 0 auto; padding: 0 20px 100px 20px; }
 
@@ -108,13 +148,18 @@
             margin-bottom: 50px;
             border: 1px solid var(--border-color);
             box-shadow: var(--shadow);
-            /* Hide for ScrollReveal */
-            visibility: hidden; 
+            visibility: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        h2 { 
-            color: var(--accent); 
-            margin-top: 0; 
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: var(--accent);
+            margin-top: 0;
             font-size: 1.8rem;
             display: flex;
             align-items: center;
@@ -141,14 +186,14 @@
 
         .exp-header { display: flex; justify-content: space-between; font-weight: 700; color: #0f172a; }
         .date { color: var(--accent); font-weight: 600; background: var(--accent-light); padding: 2px 10px; border-radius: 20px; font-size: 0.85rem; }
-        
-        .skill-tag { 
-            background: white; 
-            padding: 10px 20px; 
-            border-radius: 12px; 
-            font-size: 0.9rem; 
-            margin: 6px; 
-            display: inline-block; 
+
+        .skill-tag {
+            background: white;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            margin: 6px;
+            display: inline-block;
             color: var(--accent);
             font-weight: 600;
             border: 1px solid var(--border-color);
@@ -163,7 +208,6 @@
             box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2);
         }
 
-        /* App Styles */
         .app-card {
             background: linear-gradient(to bottom right, #ffffff, #f0f9ff);
             padding: 45px;
@@ -197,14 +241,16 @@
     </nav>
 
     <header>
-        <img src="profile.gif" alt="Leon Kovalskiy" class="profile-pic" onclick="celebrate()">
+        <img src="261-2617597_red-bow-tie-clip-art-download-suit-and-tie-no-background.png" alt="Leon Kovalskiy" class="profile-pic" onclick="celebrate()">
         <h1>Leon Kovalskiy</h1>
         <p style="font-size: 1.2rem;">Accounting Student @ Rutgers | $150k Revenue E-Commerce Founder</p>
         <p style="font-size: 0.9rem; opacity: 0.8;">leonkovalskiy@gmail.com • Manalapan, NJ</p>
+        <!-- Resume Download Button -->
+        <a href="Resume revised PDF.pdf" download class="download-btn">Download Resume PDF</a>
     </header>
 
     <div class="container">
-        
+
         <section id="experience">
             <h2>Professional Experience</h2>
             <div class="exp-item">
@@ -286,14 +332,13 @@
     </footer>
 
     <script>
-        // ScrollReveal Animations
-        ScrollReveal().reveal('section', { 
-            delay: 200, 
+        ScrollReveal().reveal('section', {
+            delay: 200,
             distance: '50px',
             origin: 'bottom',
             duration: 1000,
             easing: 'cubic-bezier(0.5, 0, 0, 1)',
-            interval: 200 
+            interval: 200
         });
         ScrollReveal().reveal('.app-card', { delay: 400, distance: '60px', origin: 'bottom' });
 
